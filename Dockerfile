@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM phusion/baseimage:latest
 
 MAINTAINER Laurent Monin <zas@metabrainz.org>
 
@@ -51,7 +51,7 @@ ARG _RESTY_CONFIG_DEPS="--with-openssl=${RESTY_BUILDIR}/openssl-${RESTY_OPENSSL_
 
 RUN apt-get update \
 	&& apt-get install --no-install-suggests -y build-essential libssl-dev libgeoip-dev unzip curl wget \
-	&& rm -rf /var/lib/apt/lists/*
+	&& apt-get upgrade -y -o Dpkg::Options::="--force-confold"
 
 RUN adduser --system --no-create-home --disabled-login --disabled-password --group nginx
 
@@ -76,9 +76,7 @@ RUN cd ${RESTY_BUILDIR} \
 RUN cd ${RESTY_BUILDIR}/openresty-${RESTY_VERSION} \
     && ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} \
     && make -j${RESTY_J} \
-    && make -j${RESTY_J} install \
-    && ln -sf /dev/stdout /var/log/nginx/access.log \
-    && ln -sf /dev/stderr /var/log/nginx/error.log
+    && make -j${RESTY_J} install
 
 RUN mkdir -p /var/cache/nginx/ && chown nginx:nginx /var/cache/nginx/
 
@@ -100,7 +98,6 @@ RUN luarocks install lua-resty-auto-ssl
 
 RUN openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 -subj '/CN=sni-support-required-for-valid-ssl' -keyout /etc/ssl/resty-auto-ssl-fallback.key -out /etc/ssl/resty-auto-ssl-fallback.crt
 
-RUN rm -rf ${RESTY_BUILDIR}
 
 RUN chmod +x \
 	/usr/local/openresty/luajit/share/lua/5.1/resty/auto-ssl/shell/start_sockproc \
@@ -110,6 +107,19 @@ RUN chmod +x \
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
+ADD files/openresty-runit /etc/service/openresty/run
+
+ARG RESTY_CONSUL_TEMPLATE_VERSION="0.16.0"
+RUN cd ${RESTY_BUILDIR} \
+    && curl -fkSL https://releases.hashicorp.com/consul-template/${RESTY_CONSUL_TEMPLATE_VERSION}/consul-template_${RESTY_CONSUL_TEMPLATE_VERSION}_linux_amd64.zip -o consul-template.zip \
+	&& unzip consul-template.zip \
+	&& chmod +x consul-template \
+	&& mv consul-template /usr/local/bin/
+
+RUN rm -rf ${RESTY_BUILDIR}
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 EXPOSE 80 443
 
-ENTRYPOINT ["/usr/local/sbin/openresty", "-g", "daemon off;"]
+ENTRYPOINT [ "/sbin/my_init" ]

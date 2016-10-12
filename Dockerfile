@@ -1,4 +1,4 @@
-FROM metabrainz/consul-template-base
+FROM metabrainz/base-image
 
 MAINTAINER Laurent Monin <zas@metabrainz.org>
 
@@ -50,8 +50,7 @@ ARG RESTY_CONFIG_OPTIONS="\
 ARG _RESTY_CONFIG_DEPS="--with-openssl=${RESTY_BUILDIR}/openssl-${RESTY_OPENSSL_VERSION} --with-pcre=${RESTY_BUILDIR}/pcre-${RESTY_PCRE_VERSION}"
 
 RUN apt-get update \
-	&& apt-get install --no-install-suggests -y build-essential libssl-dev libgeoip-dev unzip curl wget \
-	&& apt-get upgrade -y -o Dpkg::Options::="--force-confold"
+	&& apt-get install --no-install-suggests -y build-essential libssl-dev libgeoip-dev
 
 RUN adduser --system --no-create-home --disabled-login --disabled-password --group nginx
 

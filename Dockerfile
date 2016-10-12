@@ -1,4 +1,4 @@
-FROM phusion/baseimage:latest
+FROM metabrainz/consul-template-base
 
 MAINTAINER Laurent Monin <zas@metabrainz.org>
 
@@ -109,17 +109,8 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 ADD files/openresty-runit /etc/service/openresty/run
 
-ARG RESTY_CONSUL_TEMPLATE_VERSION="0.16.0"
-RUN cd ${RESTY_BUILDIR} \
-    && curl -fkSL https://releases.hashicorp.com/consul-template/${RESTY_CONSUL_TEMPLATE_VERSION}/consul-template_${RESTY_CONSUL_TEMPLATE_VERSION}_linux_amd64.zip -o consul-template.zip \
-	&& unzip consul-template.zip \
-	&& chmod +x consul-template \
-	&& mv consul-template /usr/local/bin/
-
 RUN rm -rf ${RESTY_BUILDIR}
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 80 443
-
-ENTRYPOINT [ "/sbin/my_init" ]

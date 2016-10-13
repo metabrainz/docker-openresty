@@ -111,6 +111,8 @@ ADD files/openresty-runit /etc/service/openresty/run
 
 RUN rm -rf ${RESTY_BUILDIR}
 
+RUN mkdir -p /var/log/nginx
+
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 80 443

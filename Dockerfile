@@ -103,7 +103,7 @@ RUN chmod +x \
 	/usr/local/openresty/luajit/share/lua/5.1/resty/auto-ssl/shell/start_sockproc \
 	/usr/local/openresty/luajit/share/lua/5.1/resty/auto-ssl/vendor/sockproc \
 	/usr/local/openresty/luajit/share/lua/5.1/resty/auto-ssl/shell/letsencrypt_hooks \
-	/usr/local/openresty/luajit/share/lua/5.1/resty/auto-ssl/vendor/letsencrypt.sh
+	/usr/local/openresty/luajit/share/lua/5.1/resty/auto-ssl/vendor/dehydrated
 
 COPY nginx.conf /etc/nginx/nginx.conf
 

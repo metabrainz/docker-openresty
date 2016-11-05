@@ -118,6 +118,7 @@ RUN rm -rf ${RESTY_BUILDIR}
 
 RUN mkdir -p /var/log/nginx
 
+RUN apt remove -y `apt list --installed 2>/dev/null|grep -e '^[^/]\+-\(dev\|doc\)/' -e '^gcc' -e '^cpp' -e '^g++' |cut -d '/' -f1|grep -v -- '-base$'`
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 80 443

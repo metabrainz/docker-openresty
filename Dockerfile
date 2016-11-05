@@ -2,11 +2,16 @@ FROM metabrainz/consul-template-base
 
 MAINTAINER Laurent Monin <zas@metabrainz.org>
 
-# Docker Build Arguments
+# Openresty & libs versions
 ARG RESTY_VERSION="1.11.2.1"
 ARG RESTY_OPENSSL_VERSION="1.0.2j"
 ARG RESTY_PCRE_VERSION="8.39"
+
+# luarocks & rocks versions
 ARG RESTY_LUAROCKS_VERSION="2.4.0"
+ARG RESTY_AUTOSSL_VERSION="0.10.0-1"
+
+# build setup
 ARG RESTY_J="1"
 ARG RESTY_BUILDIR="/tmp/build"
 ARG RESTY_CONFIG_OPTIONS="\
@@ -66,10 +71,6 @@ RUN cd ${RESTY_BUILDIR} \
     && tar xzf pcre-${RESTY_PCRE_VERSION}.tar.gz
 
 RUN cd ${RESTY_BUILDIR} \
-	&& curl -fkSL http://luarocks.org/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
-	&& tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz
-
-RUN cd ${RESTY_BUILDIR} \
     && curl -fkSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
 	&& tar xzf openresty-${RESTY_VERSION}.tar.gz
 
@@ -79,6 +80,10 @@ RUN cd ${RESTY_BUILDIR}/openresty-${RESTY_VERSION} \
     && make -j${RESTY_J} install
 
 RUN mkdir -p /var/cache/nginx/ && chown nginx:nginx /var/cache/nginx/
+
+RUN cd ${RESTY_BUILDIR} \
+	&& curl -fkSL http://luarocks.org/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
+	&& tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz
 
 RUN cd ${RESTY_BUILDIR}/luarocks-${RESTY_LUAROCKS_VERSION} \
 	&& ./configure \
@@ -94,7 +99,7 @@ RUN cd ${RESTY_BUILDIR}/luarocks-${RESTY_LUAROCKS_VERSION} \
 
 RUN mkdir -p /etc/resty-auto-ssl && chown nginx:nginx /etc/resty-auto-ssl
 
-RUN luarocks install lua-resty-auto-ssl
+RUN luarocks install lua-resty-auto-ssl ${RESTY_AUTOSSL_VERSION}
 
 RUN openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 -subj '/CN=sni-support-required-for-valid-ssl' -keyout /etc/ssl/resty-auto-ssl-fallback.key -out /etc/ssl/resty-auto-ssl-fallback.crt
 

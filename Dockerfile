@@ -97,9 +97,8 @@ RUN cd ${RESTY_BUILDIR}/luarocks-${RESTY_LUAROCKS_VERSION} \
 	&& ln -s /usr/local/openresty/luajit/bin/luajit /usr/local/bin/lua \
 	&& ln -s /usr/local/openresty/luajit/bin/luarocks /usr/local/bin/luarocks
 
-RUN mkdir -p /etc/resty-auto-ssl && chown nginx:nginx /etc/resty-auto-ssl
-
 RUN luarocks install lua-resty-auto-ssl ${RESTY_AUTOSSL_VERSION}
+RUN mkdir -p /etc/resty-auto-ssl && chown nginx:nginx /etc/resty-auto-ssl
 
 RUN openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 -subj '/CN=sni-support-required-for-valid-ssl' -keyout /etc/ssl/resty-auto-ssl-fallback.key -out /etc/ssl/resty-auto-ssl-fallback.crt
 
@@ -119,6 +118,6 @@ RUN rm -rf ${RESTY_BUILDIR}
 RUN mkdir -p /var/log/nginx
 
 RUN apt remove -y `apt list --installed 2>/dev/null|grep -e '^[^/]\+-\(dev\|doc\)/' -e '^gcc' -e '^cpp' -e '^g++' |cut -d '/' -f1|grep -v -- '-base$'`
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /core
 
 EXPOSE 80 443

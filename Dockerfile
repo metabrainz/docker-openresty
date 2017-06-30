@@ -3,13 +3,13 @@ FROM metabrainz/consul-template-base
 MAINTAINER Laurent Monin <zas@metabrainz.org>
 
 # Openresty & libs versions
-ARG RESTY_VERSION="1.11.2.2"
-ARG RESTY_OPENSSL_VERSION="1.0.2k"
+ARG RESTY_VERSION="1.11.2.3"
+ARG RESTY_OPENSSL_VERSION="1.0.2l"
 ARG RESTY_PCRE_VERSION="8.40"
 
 # luarocks & rocks versions
 ARG RESTY_LUAROCKS_VERSION="2.4.2"
-ARG RESTY_AUTOSSL_VERSION="0.10.3-1"
+ARG RESTY_AUTOSSL_VERSION="0.11.0-1"
 
 # build setup
 ARG RESTY_J="1"

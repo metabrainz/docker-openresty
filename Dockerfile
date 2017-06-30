@@ -102,13 +102,6 @@ RUN mkdir -p /etc/resty-auto-ssl && chown nginx:nginx /etc/resty-auto-ssl
 
 RUN openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 -subj '/CN=sni-support-required-for-valid-ssl' -keyout /etc/ssl/resty-auto-ssl-fallback.key -out /etc/ssl/resty-auto-ssl-fallback.crt
 
-
-RUN chmod +x \
-	/usr/local/openresty/luajit/share/lua/5.1/resty/auto-ssl/shell/start_sockproc \
-	/usr/local/openresty/luajit/share/lua/5.1/resty/auto-ssl/vendor/sockproc \
-	/usr/local/openresty/luajit/share/lua/5.1/resty/auto-ssl/shell/letsencrypt_hooks \
-	/usr/local/openresty/luajit/share/lua/5.1/resty/auto-ssl/vendor/dehydrated
-
 COPY nginx.conf /etc/nginx/nginx.conf
 
 ADD files/openresty-runit /etc/service/openresty/run

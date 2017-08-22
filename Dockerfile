@@ -3,7 +3,7 @@ FROM metabrainz/consul-template-base
 MAINTAINER Laurent Monin <zas@metabrainz.org>
 
 # Openresty & libs versions
-ARG RESTY_VERSION="1.11.2.4"
+ARG RESTY_VERSION="1.11.2.5"
 ARG RESTY_OPENSSL_VERSION="1.0.2l"
 ARG RESTY_PCRE_VERSION="8.40"
 

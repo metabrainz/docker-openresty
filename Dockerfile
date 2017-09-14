@@ -1,4 +1,4 @@
-FROM metabrainz/consul-template-base:v0.18.5-1
+FROM metabrainz/consul-template-base:v0.18.5-2
 
 MAINTAINER Laurent Monin <zas@metabrainz.org>
 

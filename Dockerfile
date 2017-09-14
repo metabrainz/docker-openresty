@@ -24,7 +24,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.schema-version="1.0.0-rc1" \
       org.label-schema.vendor="MetaBrainz Foundation" \
-      org.metabrainz.based-on-image="metabrainz/consul-template-base:v0.19.3-1" \
+      org.metabrainz.based-on-image="metabrainz/consul-template-base:v0.18.5-2" \
       org.metabrainz.openresty.version="1.11.2.5"
 
 

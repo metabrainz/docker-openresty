@@ -6,15 +6,15 @@ MAINTAINER Laurent Monin <zas@metabrainz.org>
 #  https://openresty.org/en/download.html
 ARG RESTY_VERSION="1.11.2.5"
 #  https://www.openssl.org/source/
-ARG RESTY_OPENSSL_VERSION="1.0.2l"
+ARG RESTY_OPENSSL_VERSION="1.0.2n"
 #  http://www.pcre.org/
 ARG RESTY_PCRE_VERSION="8.41"
 
 # luarocks & rocks versions
 #  https://github.com/luarocks/luarocks/wiki/Download
-ARG RESTY_LUAROCKS_VERSION="2.4.2"
+ARG RESTY_LUAROCKS_VERSION="2.4.3"
 #  https://luarocks.org/modules/gui/lua-resty-auto-ssl
-ARG RESTY_AUTOSSL_VERSION="0.11.0-1"
+ARG RESTY_AUTOSSL_VERSION="0.11.1-1"
 
 ARG BUILD_DATE
 ARG VCS_REF

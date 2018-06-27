@@ -4,15 +4,15 @@ MAINTAINER Laurent Monin <zas@metabrainz.org>
 
 # Openresty & libs versions
 #  https://openresty.org/en/download.html
-ARG RESTY_VERSION="1.13.6.1"
+ARG RESTY_VERSION="1.13.6.2"
 #  https://www.openssl.org/source/
-ARG RESTY_OPENSSL_VERSION="1.0.2n"
+ARG RESTY_OPENSSL_VERSION="1.0.2o"
 #  http://www.pcre.org/
-ARG RESTY_PCRE_VERSION="8.41"
+ARG RESTY_PCRE_VERSION="8.42"
 
 # luarocks & rocks versions
 #  https://github.com/luarocks/luarocks/wiki/Download
-ARG RESTY_LUAROCKS_VERSION="2.4.3"
+ARG RESTY_LUAROCKS_VERSION="2.4.4"
 #  https://luarocks.org/modules/gui/lua-resty-auto-ssl
 ARG RESTY_AUTOSSL_VERSION="0.12.0-1"
 
@@ -25,7 +25,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.schema-version="1.0.0-rc1" \
       org.label-schema.vendor="MetaBrainz Foundation" \
       org.metabrainz.based-on-image="metabrainz/consul-template-base:v0.18.5-2" \
-      org.metabrainz.openresty.version="1.13.6.1"
+      org.metabrainz.openresty.version="1.13.6.2"
 
 
 # build setup
@@ -84,7 +84,7 @@ RUN cd ${RESTY_BUILDIR} \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz
 
 RUN cd ${RESTY_BUILDIR} \
-    && curl -fkSL https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${RESTY_PCRE_VERSION}.tar.gz -o pcre-${RESTY_PCRE_VERSION}.tar.gz \
+    && curl -fkSL https://ftp.pcre.org/pub/pcre/pcre-${RESTY_PCRE_VERSION}.tar.gz -o pcre-${RESTY_PCRE_VERSION}.tar.gz \
     && tar xzf pcre-${RESTY_PCRE_VERSION}.tar.gz
 
 RUN cd ${RESTY_BUILDIR} \

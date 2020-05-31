@@ -6,7 +6,7 @@ MAINTAINER Laurent Monin <zas@metabrainz.org>
 #  https://openresty.org/en/download.html
 ARG RESTY_VERSION="1.15.8.3"
 #  https://www.openssl.org/source/
-ARG RESTY_OPENSSL_VERSION="1.1.1f"
+ARG RESTY_OPENSSL_VERSION="1.1.1g"
 #  http://www.pcre.org/
 ARG RESTY_PCRE_VERSION="8.44"
 
@@ -72,8 +72,8 @@ ARG RESTY_CONFIG_OPTIONS="\
 ARG _RESTY_CONFIG_DEPS="--with-openssl=${RESTY_BUILDIR}/openssl-${RESTY_OPENSSL_VERSION} --with-pcre=${RESTY_BUILDIR}/pcre-${RESTY_PCRE_VERSION}"
 
 RUN apt-get update \
-	&& apt-get install --no-install-suggests -y build-essential libssl-dev libgeoip-dev unzip curl wget \
-	&& apt-get upgrade -y -o Dpkg::Options::="--force-confold"
+	&& apt install --no-install-suggests -y build-essential libssl-dev libgeoip-dev unzip curl wget \
+	&& apt dist-upgrade -y -o Dpkg::Options::="--force-confold"
 
 RUN adduser --system --no-create-home --disabled-login --disabled-password --group nginx
 
@@ -127,6 +127,8 @@ RUN rm -rf ${RESTY_BUILDIR}
 
 RUN mkdir -p /var/log/nginx
 
+RUN apt-mark manual geoip-database libgeoip1
+RUN apt autoremove -y
 RUN apt remove -y `apt list --installed 2>/dev/null|grep -e '^[^/]\+-\(dev\|doc\)/' -e '^gcc' -e '^cpp' -e '^g++' |cut -d '/' -f1|grep -v -- '-base$'`
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /core
 

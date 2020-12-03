@@ -4,15 +4,15 @@ MAINTAINER Laurent Monin <zas@metabrainz.org>
 
 # Openresty & libs versions
 #  https://openresty.org/en/download.html
-ARG RESTY_VERSION="1.15.8.3"
+ARG RESTY_VERSION="1.19.3.1"
 #  https://www.openssl.org/source/
-ARG RESTY_OPENSSL_VERSION="1.1.1g"
+ARG RESTY_OPENSSL_VERSION="1.1.1h"
 #  http://www.pcre.org/
 ARG RESTY_PCRE_VERSION="8.44"
 
 # luarocks & rocks versions
 #  https://github.com/luarocks/luarocks/wiki/Download
-ARG RESTY_LUAROCKS_VERSION="3.3.1"
+ARG RESTY_LUAROCKS_VERSION="3.4.0"
 #  https://luarocks.org/modules/gui/lua-resty-auto-ssl
 ARG RESTY_AUTOSSL_VERSION="0.13.1-1"
 
@@ -25,7 +25,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.schema-version="1.0.0-rc1" \
       org.label-schema.vendor="MetaBrainz Foundation" \
       org.metabrainz.based-on-image="metabrainz/consul-template-base:v0.18.5-2" \
-      org.metabrainz.openresty.version="1.15.8.3"
+      org.metabrainz.openresty.version="1.19.3.1"
 
 
 # build setup

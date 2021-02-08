@@ -12,7 +12,7 @@ ARG RESTY_PCRE_VERSION="8.44"
 
 # luarocks & rocks versions
 #  https://github.com/luarocks/luarocks/wiki/Download
-ARG RESTY_LUAROCKS_VERSION="3.4.0"
+ARG RESTY_LUAROCKS_VERSION="3.5.0"
 #  https://luarocks.org/modules/gui/lua-resty-auto-ssl
 ARG RESTY_AUTOSSL_VERSION="0.13.1-1"
 

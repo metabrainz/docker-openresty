@@ -20,17 +20,24 @@ ARG RESTY_LUAROCKS_VERSION="3.5.0"
 #  https://luarocks.org/modules/gui/lua-resty-auto-ssl
 ARG RESTY_AUTOSSL_VERSION="0.13.1-1"
 
+# Metadata params
 ARG BUILD_DATE
+ARG VERSION
+ARG VCS_URL
 ARG VCS_REF
 
+# Metadata
 LABEL org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.vcs-url="https://github.com/metabrainz/docker-openresty" \
-      org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.schema-version="1.0.0-rc1" \
-      org.label-schema.vendor="MetaBrainz Foundation" \
-      org.metabrainz.based-on-image="metabrainz/consul-template-base:v0.18.5-2" \
-      org.metabrainz.openresty.version="1.19.3.1"
-
+    org.label-schema.vcs-url=$VCS_URL \
+    org.label-schema.vcs-ref=$VCS_REF \
+    org.label-schema.version=$VERSION \
+    org.label-schema.schema-version="1.0" \
+    org.label-schema.name="MetaBrainz Docker Openresty" \
+    org.label-schema.description="Our dockerized version of openresty, with consul-template" \
+    org.label-schema.url="https://metabrainz.org" \
+    org.label-schema.vendor="MetaBrainz Foundation" \
+    org.metabrainz.based-on-image="metabrainz/consul-template-base:v0.18.5-2" \
+    org.metabrainz.openresty.version="1.19.3.1"
 
 # build setup
 ARG RESTY_J="1"

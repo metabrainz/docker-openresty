@@ -6,7 +6,7 @@ MAINTAINER Laurent Monin <zas@metabrainz.org>
 #  https://openresty.org/en/download.html
 ARG RESTY_VERSION="1.19.3.1"
 #  https://www.openssl.org/source/
-ARG RESTY_OPENSSL_VERSION="1.1.1h"
+ARG RESTY_OPENSSL_VERSION="1.1.1i"
 #  http://www.pcre.org/
 ARG RESTY_PCRE_VERSION="8.44"
 

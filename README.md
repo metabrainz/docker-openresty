@@ -5,6 +5,7 @@ https://hub.docker.com/r/metabrainz/docker-openresty/
 
 # Dependencies
 
+- make
 - https://openresty.org/en/download.html
 - https://www.openssl.org/source/
 - http://www.pcre.org/
@@ -18,11 +19,19 @@ Don't forget to change version in LABEL `org.metabrainz.openresty.version`
 
 ## Test building:
 
-`docker build -t openresty-vA.B.C.D-E .`
+```bash
+echo vA.B.C.D-E > VERSION
+make
+```
 
 ## Commit changes and tag version:
 
-`git tag vA.B.C.D-E`
+```bash
+git add VERSION
+git commit -m 'Bump version to vA.B.C.D-E'
+git tag vA.B.C.D-E
+make
+```
 
 ## Push new version
 

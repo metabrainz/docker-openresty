@@ -62,6 +62,7 @@ docker_build:
 	--build-arg VERSION=$(CODE_VERSION) \
 	--build-arg VCS_URL=`git config --get remote.origin.url` \
 	--build-arg VCS_REF=$(GIT_COMMIT) \
+	--build-arg RESTY_J=`nproc` \
 	-t $(DOCKER_IMAGE):$(DOCKER_TAG) .
 
 docker_push:

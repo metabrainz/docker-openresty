@@ -58,12 +58,8 @@ docker_build:
 	-t $(DOCKER_IMAGE):$(DOCKER_TAG) .
 
 docker_push:
-	# Tag image as latest
-	docker tag $(DOCKER_IMAGE):$(DOCKER_TAG) $(DOCKER_IMAGE):latest
-
 	# Push to DockerHub
 	docker push $(DOCKER_IMAGE):$(DOCKER_TAG)
-	docker push $(DOCKER_IMAGE):latest
 
 output:
 	@echo Docker Image: $(DOCKER_IMAGE):$(DOCKER_TAG)

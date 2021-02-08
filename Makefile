@@ -17,7 +17,7 @@ GIT_COMMIT = $(strip $(shell git rev-parse --short HEAD))
 
 # Get the version number from the code
 CODE_VERSION = $(strip $(shell cat VERSION))
-ifeq ($(CODE_VERSION),)
+ifeq (x$(CODE_VERSION),x)
 $(error You need to create a VERSION file to build a release)
 endif
 
@@ -29,11 +29,15 @@ endif
 
 # If we're releasing to Docker Hub, and we're going to mark it with the latest tag, it should exactly match a version release
 ifeq ($(MAKECMDGOALS),release)
-# Use the version number as the release tag.
-DOCKER_TAG = $(CODE_VERSION)
+
+# Test if a tag exists
+TAGGED = $(strip $(shell git rev-parse "$(CODE_VERSION)" >/dev/null 2>&1 && echo "ok"))
+ifneq (x$(TAGGED), xok)
+$(error echo No matching tag: $(CODE_VERSION))
+endif
 
 # See what commit is tagged to match the version
-VERSION_COMMIT = $(strip $(shell git rev-list $(CODE_VERSION) -n 1 | cut -c1-7))
+VERSION_COMMIT = $(strip $(shell git rev-list "$(CODE_VERSION)" -n 1 | cut -c1-7))
 ifneq ($(VERSION_COMMIT), $(GIT_COMMIT))
 $(error echo You are trying to push a build based on commit $(GIT_COMMIT) but the tagged release version is $(VERSION_COMMIT))
 endif
@@ -42,6 +46,9 @@ endif
 ifneq (x$(GIT_NOT_CLEAN_CHECK), x)
 $(error echo You are trying to release a build based on a dirty repo)
 endif
+
+# Use the version number as the release tag.
+DOCKER_TAG = $(CODE_VERSION)
 
 else
 # Add the commit ref for development builds. Mark as dirty if the working directory isn't clean

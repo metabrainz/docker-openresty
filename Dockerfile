@@ -8,7 +8,7 @@ MAINTAINER Laurent Monin <zas@metabrainz.org>
 #  https://openresty.org/en/download.html
 ARG RESTY_VERSION="1.19.3.2"
 #  https://www.openssl.org/source/
-ARG RESTY_OPENSSL_VERSION="1.1.1k"
+ARG RESTY_OPENSSL_VERSION="1.1.1l"
 # patches to openssl by openresty team, see https://github.com/openresty/openresty/tree/master/patches
 ARG RESTY_OPENSSL_PATCH_VERSION="1.1.1f"
 #  http://www.pcre.org/

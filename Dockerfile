@@ -6,7 +6,7 @@ MAINTAINER Laurent Monin <zas@metabrainz.org>
 # See also https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile
 
 #  https://openresty.org/en/download.html
-ARG RESTY_VERSION="1.19.3.2"
+ARG RESTY_VERSION="1.19.9.1"
 #  https://www.openssl.org/source/
 ARG RESTY_OPENSSL_VERSION="1.1.1l"
 # patches to openssl by openresty team, see https://github.com/openresty/openresty/tree/master/patches
@@ -198,8 +198,8 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.description="Our dockerized version of openresty, with consul-template" \
     org.label-schema.url="https://metabrainz.org" \
     org.label-schema.vendor="MetaBrainz Foundation" \
-    org.metabrainz.based-on-image="metabrainz/consul-template-base:v0.18.5-2" \
-    org.metabrainz.openresty.version="1.19.3.1"
+    org.metabrainz.based-on-image="metabrainz/consul-template-base:focal-1.1.0_ct_0.27.1" \
+    org.metabrainz.openresty.version="1.19.9.1"
 
 
 EXPOSE 80 443

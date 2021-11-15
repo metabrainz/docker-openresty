@@ -29,9 +29,9 @@ make
 
 ```bash
 git add VERSION
-git commit -m 'Bump version to vA.B.C.D-E'
-git tag $(cat VERSION)
-git push origin $(cat VERSION)
+git commit -m "Bump version to $(cat VERSION)"
+git tag "$(cat VERSION)"
+git push origin "$(cat VERSION)"
 make
 ```
 

@@ -14,6 +14,7 @@ ARG RESTY_OPENSSL_PATCH_VERSION="1.1.1f"
 #  http://www.pcre.org/
 ARG RESTY_PCRE_VERSION="8.44"
 
+
 # luarocks & rocks versions
 #  https://github.com/luarocks/luarocks/wiki/Download
 ARG RESTY_LUAROCKS_VERSION="3.7.0"
@@ -124,7 +125,7 @@ RUN \
     && make -j${RESTY_J} install_sw \
     && cd ${RESTY_BUILDIR} \
     && rm -rf openssl-${RESTY_OPENSSL_VERSION} openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
-    && curl -fkSL https://ftp.pcre.org/pub/pcre/pcre-${RESTY_PCRE_VERSION}.tar.gz -o pcre-${RESTY_PCRE_VERSION}.tar.gz \
+    && curl -fkSL https://downloads.sourceforge.net/project/pcre/pcre/${RESTY_PCRE_VERSION}/pcre-${RESTY_PCRE_VERSION}.tar.gz -o pcre-${RESTY_PCRE_VERSION}.tar.gz \
     && tar xzf pcre-${RESTY_PCRE_VERSION}.tar.gz \
     && cd pcre-${RESTY_PCRE_VERSION} \
     && ./configure \

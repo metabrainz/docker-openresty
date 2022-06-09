@@ -6,9 +6,9 @@ MAINTAINER Laurent Monin <zas@metabrainz.org>
 # See also https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile
 
 #  https://openresty.org/en/download.html
-ARG RESTY_VERSION="1.19.9.1"
+ARG RESTY_VERSION="1.21.4.1"
 #  https://www.openssl.org/source/
-ARG RESTY_OPENSSL_VERSION="1.1.1n"
+ARG RESTY_OPENSSL_VERSION="1.1.1o"
 # patches to openssl by openresty team, see https://github.com/openresty/openresty/tree/master/patches
 ARG RESTY_OPENSSL_PATCH_VERSION="1.1.1f"
 #  http://www.pcre.org/
@@ -17,7 +17,7 @@ ARG RESTY_PCRE_VERSION="8.44"
 
 # luarocks & rocks versions
 #  https://github.com/luarocks/luarocks/wiki/Download
-ARG RESTY_LUAROCKS_VERSION="3.7.0"
+ARG RESTY_LUAROCKS_VERSION="3.9.0"
 #  https://luarocks.org/modules/gui/lua-resty-auto-ssl
 ARG RESTY_AUTOSSL_VERSION="0.13.1-1"
 
@@ -151,7 +151,6 @@ RUN \
     && ./configure \
         --prefix=/usr/local/openresty/luajit \
         --with-lua=/usr/local/openresty/luajit/ \
-        --lua-suffix=jit-2.1.0-beta3 \
         --with-lua-include=/usr/local/openresty/luajit/include/luajit-2.1 \
     && make \
     && make install \

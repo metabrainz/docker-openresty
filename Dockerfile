@@ -1,4 +1,4 @@
-FROM metabrainz/consul-template-base:focal-1.1.0_ct_0.27.1
+FROM metabrainz/consul-template-base:ct_0.33.0-jammy-1.0.1-v0.4-1
 
 MAINTAINER Laurent Monin <zas@metabrainz.org>
 

@@ -197,8 +197,8 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.description="Our dockerized version of openresty, with consul-template" \
     org.label-schema.url="https://metabrainz.org" \
     org.label-schema.vendor="MetaBrainz Foundation" \
-    org.metabrainz.based-on-image="metabrainz/consul-template-base:focal-1.1.0_ct_0.27.1" \
-    org.metabrainz.openresty.version="1.19.9.1"
+    org.metabrainz.based-on-image="metabrainz/consul-template-base:ct_0.33.0-jammy-1.0.1-v0.4-1" \
+    org.metabrainz.openresty.version="1.21.4.2"
 
 
 EXPOSE 80 443

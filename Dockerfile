@@ -86,6 +86,7 @@ RUN adduser --system --no-create-home --disabled-login --disabled-password --gro
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-suggests --no-install-recommends \
+        bsdmainutils \
         ca-certificates \
         curl \
         file \

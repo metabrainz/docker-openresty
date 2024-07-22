@@ -1,12 +1,12 @@
 FROM metabrainz/consul-template-base:ct_0.33.0-jammy-1.0.1-v0.4-1
 
-MAINTAINER Laurent Monin <zas@metabrainz.org>
+LABEL maintainer="Laurent Monin <zas@metabrainz.org>"
 
 # Openresty & libs versions
 # See also https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile
 
 #  https://openresty.org/en/download.html
-ARG RESTY_VERSION="1.25.3.1"
+ARG RESTY_VERSION="1.25.3.2"
 #  https://www.openssl.org/source/
 ARG RESTY_OPENSSL_VERSION="1.1.1w"
 # patches to openssl by openresty team, see https://github.com/openresty/openresty/tree/master/patches
@@ -17,7 +17,7 @@ ARG RESTY_PCRE_VERSION="8.45"
 
 # luarocks & rocks versions
 #  https://github.com/luarocks/luarocks/wiki/Download
-ARG RESTY_LUAROCKS_VERSION="3.9.2"
+ARG RESTY_LUAROCKS_VERSION="3.11.1"
 #  https://luarocks.org/modules/gui/lua-resty-auto-ssl
 ARG RESTY_AUTOSSL_VERSION="0.13.1-1"
 
@@ -200,7 +200,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.url="https://metabrainz.org" \
     org.label-schema.vendor="MetaBrainz Foundation" \
     org.metabrainz.based-on-image="metabrainz/consul-template-base:ct_0.33.0-jammy-1.0.1-v0.4-1" \
-    org.metabrainz.openresty.version="1.25.3.1"
+    org.metabrainz.openresty.version="1.25.3.2"
 
 
 EXPOSE 80 443

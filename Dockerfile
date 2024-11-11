@@ -129,9 +129,10 @@ RUN \
 
 RUN \
     mkdir -p ${RESTY_BUILDIR} \
-    cd ${RESTY_BUILDIR} \
+    && cd ${RESTY_BUILDIR} \
     && curl -fSL "${RESTY_OPENSSL_URL_BASE}/openssl-${RESTY_OPENSSL_VERSION}.tar.gz" -o openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
+    && rm openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && cd openssl-${RESTY_OPENSSL_VERSION} \
     && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "3.0.15" ] ; then \
         echo 'patching OpenSSL 3.0.15 for OpenResty' \
@@ -146,11 +147,12 @@ RUN \
       ${RESTY_OPENSSL_BUILD_OPTIONS} \
     && make -j${RESTY_J} \
     && make -j${RESTY_J} install_sw \
-    && cd ${RESTY_BUILDIR} \
-    && rm -rf openssl-${RESTY_OPENSSL_VERSION} openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
+    && cd .. \
+    && rm -r openssl-${RESTY_OPENSSL_VERSION} \
     && curl -fSL "${RESTY_PCRE_URL_BASE}/pcre2-${RESTY_PCRE_VERSION}/pcre2-${RESTY_PCRE_VERSION}.tar.gz" -o pcre2-${RESTY_PCRE_VERSION}.tar.gz \
     && echo "${RESTY_PCRE_SHA256}  pcre2-${RESTY_PCRE_VERSION}.tar.gz" | shasum -a 256 --check \
     && tar xzf pcre2-${RESTY_PCRE_VERSION}.tar.gz \
+    && rm pcre2-${RESTY_PCRE_VERSION}.tar.gz \
     && cd pcre2-${RESTY_PCRE_VERSION} \
     && CFLAGS="-O3" ./configure \
         --prefix=/usr/local/openresty/pcre2 \
@@ -158,26 +160,31 @@ RUN \
         ${RESTY_PCRE_BUILD_OPTIONS} \
     && CFLAGS="-O3" make -j${RESTY_J} \
     && CFLAGS="-O3" make -j${RESTY_J} install \
-    && cd ${RESTY_BUILDIR} \
-    && rm -rf pcre2-${RESTY_PCRE_VERSION} pcre2-${RESTY_PCRE_VERSION}.tar.gz \
+    && cd .. \
+    && rm -r pcre2-${RESTY_PCRE_VERSION} \
     && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
     && tar xzf openresty-${RESTY_VERSION}.tar.gz \
-    && cd ${RESTY_BUILDIR}/openresty-${RESTY_VERSION} \
+    && rm openresty-${RESTY_VERSION}.tar.gz \
+    && cd openresty-${RESTY_VERSION} \
     && eval ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} ${RESTY_CONFIG_OPTIONS_MORE} ${RESTY_LUAJIT_OPTIONS} ${RESTY_PCRE_OPTIONS} ${RESTY_PATHS_CONFIG_OPTIONS} \
     && make -j${RESTY_J} \
     && make -j${RESTY_J} install \
-    && cd ${RESTY_BUILDIR} \
+    && cd .. \
+    && rm -r openresty-${RESTY_VERSION} \
     && curl -fSL http://luarocks.org/releases/luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz -o luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
     && tar xzf luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
-    && cd ${RESTY_BUILDIR}/luarocks-${RESTY_LUAROCKS_VERSION} \
+    && rm luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
+    && cd luarocks-${RESTY_LUAROCKS_VERSION} \
     && ./configure \
         --prefix=/usr/local/openresty/luajit \
         --with-lua=/usr/local/openresty/luajit/ \
         --with-lua-include=/usr/local/openresty/luajit/include/luajit-2.1 \
     && make \
     && make install \
+    && cd .. \
+    && rm -r luarocks-${RESTY_LUAROCKS_VERSION} \
     && cd / \
-    && rm -rf ${RESTY_BUILDIR} \
+    && rm -r ${RESTY_BUILDIR} \
     && ln -s /usr/local/openresty/luajit/bin/luajit /usr/local/bin/luajit \
     && ln -s /usr/local/openresty/luajit/bin/luajit /usr/local/bin/lua \
     && ln -s /usr/local/openresty/luajit/bin/luarocks /usr/local/bin/luarocks \

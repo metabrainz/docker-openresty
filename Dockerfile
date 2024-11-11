@@ -138,7 +138,7 @@ RUN \
         && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
     fi \
     && ./config \
-      shared zlib -g \
+      shared zlib \
       --prefix=/usr/local/openresty/openssl3 \
       --libdir=lib \
       --openssldir=/usr/lib/ssl \
@@ -152,12 +152,12 @@ RUN \
     && echo "${RESTY_PCRE_SHA256}  pcre2-${RESTY_PCRE_VERSION}.tar.gz" | shasum -a 256 --check \
     && tar xzf pcre2-${RESTY_PCRE_VERSION}.tar.gz \
     && cd pcre2-${RESTY_PCRE_VERSION} \
-    && CFLAGS="-g -O3" ./configure \
+    && CFLAGS="-O3" ./configure \
         --prefix=/usr/local/openresty/pcre2 \
         --libdir=/usr/local/openresty/pcre2/lib \
         ${RESTY_PCRE_BUILD_OPTIONS} \
-    && CFLAGS="-g -O3" make -j${RESTY_J} \
-    && CFLAGS="-g -O3" make -j${RESTY_J} install \
+    && CFLAGS="-O3" make -j${RESTY_J} \
+    && CFLAGS="-O3" make -j${RESTY_J} install \
     && cd ${RESTY_BUILDIR} \
     && rm -rf pcre2-${RESTY_PCRE_VERSION} pcre2-${RESTY_PCRE_VERSION}.tar.gz \
     && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \

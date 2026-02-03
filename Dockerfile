@@ -8,17 +8,17 @@ LABEL maintainer="Laurent Monin <zas@metabrainz.org>"
 #  https://openresty.org/en/download.html
 ARG RESTY_VERSION="1.27.1.2"
 #  https://www.openssl.org/source/
-ARG RESTY_OPENSSL_VERSION="3.4.1"
+ARG RESTY_OPENSSL_VERSION="3.5.5"
 # patches to openssl by openresty team, see https://github.com/openresty/openresty/tree/master/patches
-ARG RESTY_OPENSSL_PATCH_VERSION="3.4.1"
+ARG RESTY_OPENSSL_PATCH_VERSION="3.5.5"
 ARG RESTY_OPENSSL_URL_BASE="https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}"
 ARG RESTY_OPENSSL_BUILD_OPTIONS="enable-camellia enable-seed enable-rfc3779 enable-cms enable-md2 enable-rc5 \
         enable-weak-ssl-ciphers enable-ssl3 enable-ssl3-method enable-md2 enable-ktls enable-fips \
         "
 
 # https://github.com/openresty/openresty-packaging/blob/master/deb/openresty-pcre2/debian/rules
-ARG RESTY_PCRE_VERSION="10.44"
-ARG RESTY_PCRE_SHA256="86b9cb0aa3bcb7994faa88018292bc704cdbb708e785f7c74352ff6ea7d3175b"
+ARG RESTY_PCRE_VERSION="10.47"
+ARG RESTY_PCRE_SHA256="c08ae2388ef333e8403e670ad70c0a11f1eed021fd88308d7e02f596fcd9dc16"
 ARG RESTY_PCRE_URL_BASE="https://github.com/PCRE2Project/pcre2/releases/download"
 ARG RESTY_PCRE_BUILD_OPTIONS="--enable-jit --enable-pcre2grep-jit --disable-bsr-anycrlf --disable-coverage --disable-ebcdic --disable-fuzz-support \
     --disable-jit-sealloc --disable-never-backslash-C --enable-newline-is-lf --enable-pcre2-8 --enable-pcre2-16 --enable-pcre2-32 \
@@ -28,7 +28,7 @@ ARG RESTY_PCRE_BUILD_OPTIONS="--enable-jit --enable-pcre2grep-jit --disable-bsr-
 
 # luarocks & rocks versions
 #  https://github.com/luarocks/luarocks/wiki/Download
-ARG RESTY_LUAROCKS_VERSION="3.11.1"
+ARG RESTY_LUAROCKS_VERSION="3.13.0"
 #  https://luarocks.org/modules/gui/lua-resty-auto-ssl
 ARG RESTY_AUTOSSL_VERSION="0.13.1-1"
 

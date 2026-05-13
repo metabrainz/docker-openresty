@@ -29,8 +29,6 @@ ARG RESTY_PCRE_BUILD_OPTIONS="--enable-jit --enable-pcre2grep-jit --disable-bsr-
 # luarocks & rocks versions
 #  https://github.com/luarocks/luarocks/wiki/Download
 ARG RESTY_LUAROCKS_VERSION="3.13.0"
-#  https://luarocks.org/modules/gui/lua-resty-auto-ssl
-ARG RESTY_AUTOSSL_VERSION="0.13.1-1"
 
 # build setup
 ARG RESTY_J="1"
@@ -99,7 +97,6 @@ ARG _RESTY_CONFIG_DEPS="--with-pcre \
     --with-ld-opt='-L/usr/local/openresty/pcre2/lib -L/usr/local/openresty/openssl3/lib -Wl,-rpath,/usr/local/openresty/pcre2/lib:/usr/local/openresty/openssl3/lib' \
     "
 RUN adduser --system --no-create-home --disabled-login --disabled-password --group nginx \
-    && mkdir -p /etc/resty-auto-ssl && chown nginx:nginx /etc/resty-auto-ssl \
     && mkdir -p /var/cache/nginx/ && chown nginx:nginx /var/cache/nginx/ \
     && mkdir -p /var/log/nginx
 
@@ -188,15 +185,11 @@ RUN \
     && ln -s /usr/local/openresty/luajit/bin/luajit /usr/local/bin/luajit \
     && ln -s /usr/local/openresty/luajit/bin/luajit /usr/local/bin/lua \
     && ln -s /usr/local/openresty/luajit/bin/luarocks /usr/local/bin/luarocks \
-    && luarocks install lua-resty-auto-ssl ${RESTY_AUTOSSL_VERSION} \
     && DEBIAN_FRONTEND=noninteractive apt-mark manual geoip-database libgeoip1 \
     && DEBIAN_FRONTEND=noninteractive apt autoremove -y \
     && DEBIAN_FRONTEND=noninteractive apt remove -y `apt list --installed 2>/dev/null|grep -e '^[^/]\+-\(dev\|doc\)/' -e '^gcc' -e '^cpp' -e '^g++' |cut -d '/' -f1|grep -v -- '-base$'` \
     && DEBIAN_FRONTEND=noninteractive apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /core
-
-RUN dd if=/dev/urandom of=/root/.rnd bs=256 count=1 \
-    && /usr/local/openresty/openssl3/bin/openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 -subj '/CN=sni-support-required-for-valid-ssl' -keyout /etc/ssl/resty-auto-ssl-fallback.key -out /etc/ssl/resty-auto-ssl-fallback.crt
 
 COPY nginx.conf /etc/nginx/nginx.conf
 

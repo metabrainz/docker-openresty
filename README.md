@@ -1,6 +1,6 @@
 # openresty
 
-Openresty + luarocks + lua autossl upon MetaBrainz base image (includes consul-template)
+Openresty + luarocks upon MetaBrainz base image (includes consul-template)
 
 https://hub.docker.com/r/metabrainz/docker-openresty/
 
@@ -11,7 +11,6 @@ https://hub.docker.com/r/metabrainz/docker-openresty/
 - https://www.openssl.org/source/
 - http://www.pcre.org/
 - https://github.com/luarocks/luarocks/wiki/Download
-- https://luarocks.org/modules/gui/lua-resty-auto-ssl
 
 # Upgrading/building
 

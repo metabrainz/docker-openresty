@@ -162,7 +162,16 @@ RUN \
     && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
     && tar xzf openresty-${RESTY_VERSION}.tar.gz \
     && rm openresty-${RESTY_VERSION}.tar.gz \
-    && cd openresty-${RESTY_VERSION} \
+    && cd openresty-${RESTY_VERSION}/bundle/nginx-1.29.2 \
+    && echo "Applying security patches from openresty v1.29.2.4..." \
+    && curl -s https://raw.githubusercontent.com/openresty/openresty/v1.29.2.4/patches/nginx/1.29.2/nginx-1.29.2-balancer_pool_max_retry.patch | patch -p1 \
+    && curl -s https://raw.githubusercontent.com/openresty/openresty/v1.29.2.4/patches/nginx/1.29.2/nginx-1.29.2-CVE-2026-40460.patch | patch -p1 \
+    && curl -s https://raw.githubusercontent.com/openresty/openresty/v1.29.2.4/patches/nginx/1.29.2/nginx-1.29.2-CVE-2026-40701.patch | patch -p1 \
+    && curl -s https://raw.githubusercontent.com/openresty/openresty/v1.29.2.4/patches/nginx/1.29.2/nginx-1.29.2-CVE-2026-42934.patch | patch -p1 \
+    && curl -s https://raw.githubusercontent.com/openresty/openresty/v1.29.2.4/patches/nginx/1.29.2/nginx-1.29.2-CVE-2026-42945.patch | patch -p1 \
+    && curl -s https://raw.githubusercontent.com/openresty/openresty/v1.29.2.4/patches/nginx/1.29.2/nginx-1.29.2-CVE-2026-42946.patch | patch -p1 \
+    && curl -s https://raw.githubusercontent.com/openresty/openresty/v1.29.2.4/patches/nginx/1.29.2/nginx-1.29.2-http2_subreq_error_wakeup.patch | patch -p1 \
+    && cd ../.. \
     && eval ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} ${RESTY_CONFIG_OPTIONS_MORE} ${RESTY_LUAJIT_OPTIONS} ${RESTY_PCRE_OPTIONS} ${RESTY_PATHS_CONFIG_OPTIONS} \
     && make -j${RESTY_J} \
     && make -j${RESTY_J} install \
@@ -220,7 +229,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.url="https://metabrainz.org" \
     org.label-schema.vendor="MetaBrainz Foundation" \
     org.metabrainz.based-on-image="metabrainz/consul-template-base:noble-1.0.2-v0.3-1" \
-    org.metabrainz.openresty.version="1.29.2.3"
+    org.metabrainz.openresty.version="1.29.2.4"
 
 RUN /usr/local/openresty/bin/openresty -V
 

@@ -6,11 +6,11 @@ LABEL maintainer="Laurent Monin <zas@metabrainz.org>"
 # See also https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile
 
 #  https://openresty.org/en/download.html
-ARG RESTY_VERSION="1.29.2.3"
+ARG RESTY_VERSION="1.29.2.5"
 #  https://www.openssl.org/source/
 ARG RESTY_OPENSSL_VERSION="3.5.6"
 # patches to openssl by openresty team, see https://github.com/openresty/openresty/tree/master/patches
-ARG RESTY_OPENSSL_PATCH_VERSION="3.5.6"
+ARG RESTY_OPENSSL_PATCH_VERSION="3.5.5"
 ARG RESTY_OPENSSL_URL_BASE="https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}"
 ARG RESTY_OPENSSL_BUILD_OPTIONS="enable-camellia enable-seed enable-rfc3779 enable-cms enable-md2 enable-rc5 \
         enable-weak-ssl-ciphers enable-ssl3 enable-ssl3-method enable-md2 enable-ktls enable-fips \
@@ -131,8 +131,8 @@ RUN \
     && tar xzf openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && rm openssl-${RESTY_OPENSSL_VERSION}.tar.gz \
     && cd openssl-${RESTY_OPENSSL_VERSION} \
-    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-5) = "3.0.15" ] ; then \
-        echo 'patching OpenSSL 3.0.15 for OpenResty' \
+    && if [ $(echo ${RESTY_OPENSSL_VERSION} | cut -c 1-2) = "3." ] ; then \
+        echo 'patching OpenSSL 3.x for OpenResty' \
         && curl -s https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-${RESTY_OPENSSL_PATCH_VERSION}-sess_set_get_cb_yield.patch | patch -p1 ; \
     fi \
     && ./config \
@@ -220,7 +220,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.url="https://metabrainz.org" \
     org.label-schema.vendor="MetaBrainz Foundation" \
     org.metabrainz.based-on-image="metabrainz/consul-template-base:noble-1.0.2-v0.3-1" \
-    org.metabrainz.openresty.version="1.29.2.3"
+    org.metabrainz.openresty.version="1.29.2.5"
 
 RUN /usr/local/openresty/bin/openresty -V
 

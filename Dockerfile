@@ -6,9 +6,9 @@ LABEL maintainer="Laurent Monin <zas@metabrainz.org>"
 # See also https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile
 
 #  https://openresty.org/en/download.html
-ARG RESTY_VERSION="1.31.1.1"
+ARG RESTY_VERSION="1.31.8.1"
 #  https://www.openssl.org/source/
-ARG RESTY_OPENSSL_VERSION="3.5.7"
+ARG RESTY_OPENSSL_VERSION="3.5.9"
 # patches to openssl by openresty team, see https://github.com/openresty/openresty/tree/master/patches
 ARG RESTY_OPENSSL_PATCH_VERSION="3.5.5"
 ARG RESTY_OPENSSL_URL_BASE="https://github.com/openssl/openssl/releases/download/openssl-${RESTY_OPENSSL_VERSION}"
@@ -17,8 +17,8 @@ ARG RESTY_OPENSSL_BUILD_OPTIONS="enable-camellia enable-seed enable-rfc3779 enab
         "
 
 # https://github.com/openresty/openresty-packaging/blob/master/deb/openresty-pcre2/debian/rules
-ARG RESTY_PCRE_VERSION="10.47"
-ARG RESTY_PCRE_SHA256="c08ae2388ef333e8403e670ad70c0a11f1eed021fd88308d7e02f596fcd9dc16"
+ARG RESTY_PCRE_VERSION="10.49"
+ARG RESTY_PCRE_SHA256="929f0b20e62879252a15886b06c89f1edef61a363cbd5826fb041080a5e557ae"
 ARG RESTY_PCRE_URL_BASE="https://github.com/PCRE2Project/pcre2/releases/download"
 ARG RESTY_PCRE_BUILD_OPTIONS="--enable-jit --enable-pcre2grep-jit --disable-bsr-anycrlf --disable-coverage --disable-ebcdic --disable-fuzz-support \
     --disable-jit-sealloc --disable-never-backslash-C --enable-newline-is-lf --enable-pcre2-8 --enable-pcre2-16 --enable-pcre2-32 \
@@ -220,7 +220,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.url="https://metabrainz.org" \
     org.label-schema.vendor="MetaBrainz Foundation" \
     org.metabrainz.based-on-image="metabrainz/consul-template-base:noble-1.0.2-v0.3-1" \
-    org.metabrainz.openresty.version="1.31.1.1"
+    org.metabrainz.openresty.version="1.31.8.1"
 
 RUN /usr/local/openresty/bin/openresty -V
 

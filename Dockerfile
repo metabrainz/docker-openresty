@@ -1,4 +1,4 @@
-FROM metabrainz/consul-template-base:noble-1.0.2-v0.3-1
+FROM metabrainz/consul-template-base:noble-1.0.2-v0.3-2
 
 LABEL maintainer="Laurent Monin <zas@metabrainz.org>"
 
@@ -6,7 +6,7 @@ LABEL maintainer="Laurent Monin <zas@metabrainz.org>"
 # See also https://github.com/openresty/docker-openresty/blob/master/bionic/Dockerfile
 
 #  https://openresty.org/en/download.html
-ARG RESTY_VERSION="1.31.8.1"
+ARG RESTY_VERSION="1.31.9.1"
 #  https://www.openssl.org/source/
 ARG RESTY_OPENSSL_VERSION="3.5.9"
 # patches to openssl by openresty team, see https://github.com/openresty/openresty/tree/master/patches
@@ -220,7 +220,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.url="https://metabrainz.org" \
     org.label-schema.vendor="MetaBrainz Foundation" \
     org.metabrainz.based-on-image="metabrainz/consul-template-base:noble-1.0.2-v0.3-1" \
-    org.metabrainz.openresty.version="1.31.8.1"
+    org.metabrainz.openresty.version="1.31.9.1"
 
 RUN /usr/local/openresty/bin/openresty -V
 
